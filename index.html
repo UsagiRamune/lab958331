@@ -3,101 +3,375 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Portfolio CV</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-     <link rel="stylesheet" href="style.css" />
+    <title>My Portfolio CV - Enhanced</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70" tabindex="0">
+    
+    <!-- Ambient Background Elements -->
+    <div class="ambient-orbs"></div>
+    <div class="floating-elements" id="floatingElements"></div>
+    <div class="tech-pattern"></div>
 
-
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <!-- Navigation with ZZZ-style design -->
+    <nav id="navbar" class="navbar navbar-expand-lg cozy-nav sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="#">PERSONAL CV</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <div class="nav-brand-container">
+                <div class="brand-icon"></div>
+                <a class="navbar-brand" href="#">Personal Portfolio</a>
+            </div>
+            <button class="navbar-toggler cozy-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="cv/my-cv.pdf" download>Download CV</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">View Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cozy-nav-link" href="#about">
+                            <span class="nav-icon">👤</span>About Me
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cozy-nav-link" href="#portfolio">
+                            <span class="nav-icon">🎨</span>Portfolio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cozy-nav-link" href="#" onclick="downloadCV()">
+                            <span class="nav-icon">📄</span>Download CV
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cozy-nav-link" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <span class="nav-icon">📞</span>Contact
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-
+    <!-- About Section with ZZZ Card Mechanics -->
     <div class="container py-5" id="about">
-        <div class="card shadow-lg p-4 mx-auto">
-            <div class="text-center">
-                <img src="assets/Profile.jpg" class="rounded-circle mb-3" alt="Your Photo" width="120" height="120">
-                <h1 class="mb-1">Atikun Chinnabud</h1>
-                <p class="mb-1">Noob Web Developer / Game Designer / Art Designer / Project Coordinate</p>
+        <div class="cozy-card main-card scroll-animate">
+            <div class="card-header">
+                <div class="header-decoration"></div>
+                <h2 class="card-title">Profile Information</h2>
             </div>
+            
+            <div class="card-content">
+                <div class="profile-section">
+                    <div class="avatar-container">
+                        <div class="avatar-frame">
+                            <img src="assets/Profile.jpg" class="avatar" alt="Profile Photo">
+                            <div class="avatar-status"></div>
+                        </div>
+                        <div class="avatar-glow"></div>
+                    </div>
+                    
+                    <div class="profile-info">
+                        <h1 class="profile-name">Atikun Chinnabud</h1>
+                        <p class="profile-role">Developer • Designer • Creator</p>
+                        <div class="profile-tags">
+                            <span class="role-tag">Web Developer</span>
+                            <span class="role-tag">Game Designer</span>
+                            <span class="role-tag">Art Designer</span>
+                            <span class="role-tag">Project Coordinator</span>
+                        </div>
+                    </div>
+                </div>
 
-            <hr>
+                <div class="info-grid">
+                    <div class="info-card education-card">
+                        <div class="info-header">
+                            <span class="info-icon">🎓</span>
+                            <h3>Education</h3>
+                        </div>
+                        <div class="info-content">
+                            <div class="education-item">
+                                <h4>Chiang Mai University</h4>
+                                <p class="degree">B.Sc. CAMT - Digital Game</p>
+                                <span class="year">2023</span>
+                            </div>
+                        </div>
+                    </div>
 
-            <h3>Education</h3>
-            <p><strong>Chiang Mai University</strong> - 2023<br><strong>B.Sc. CAMT </strong> - Digital Game</p>
-
-            <h3 class="mt-4">Skills</h3>
-            <div class="d-flex flex-wrap gap-2">
-                <span class="badge bg-secondary">Unity</span>
-                <span class="badge bg-primary">C#</span>
-                <span class="badge bg-dark">UE5</span>
-                <span class="badge bg-primary">C++</span>
-                <span class="badge bg-info">Bootstrap</span>
-                <span class="badge bg-danger">HTML</span>
-                <span class="badge bg-success">CSS</span>
-                <span class="badge bg-warning">JavaScript</span>
+                    <div class="info-card skills-card">
+                        <div class="info-header">
+                            <span class="info-icon">⚡</span>
+                            <h3>Technical Skills</h3>
+                        </div>
+                        <div class="info-content">
+                            <div class="skills-grid">
+                                <div class="skill-item unity-skill" data-level="85">
+                                    <div class="skill-icon">🎮</div>
+                                    <div class="skill-info">
+                                        <span class="skill-name">Unity</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-item csharp-skill" data-level="80">
+                                    <div class="skill-icon">💻</div>
+                                    <div class="skill-info">
+                                        <span class="skill-name">C#</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-item ue-skill" data-level="75">
+                                    <div class="skill-icon">🔧</div>
+                                    <div class="skill-info">
+                                        <span class="skill-name">UE5</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-item cpp-skill" data-level="70">
+                                    <div class="skill-icon">⚙️</div>
+                                    <div class="skill-info">
+                                        <span class="skill-name">C++</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 70%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-item web-skill" data-level="85">
+                                    <div class="skill-icon">🌐</div>
+                                    <div class="skill-info">
+                                        <span class="skill-name">Web Dev</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="skill-item design-skill" data-level="90">
+                                    <div class="skill-icon">🎨</div>
+                                    <div class="skill-info">
+                                        <span class="skill-name">Design</span>
+                                        <div class="skill-bar">
+                                            <div class="skill-progress" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
+    <!-- Portfolio Section with Enhanced Gallery -->
     <div class="container py-5" id="portfolio">
-        <h2 class="text-center mb-4 fw-bold">My Projects</h2>
-
-        <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner rounded shadow">
-                <div class="carousel-item active">
-                    <img src="assets/ProjectArt1.png" class="d-block w-100" alt="Project 1">
+        <div class="section-header scroll-animate">
+            <h2 class="section-title">
+                <span class="title-decoration"></span>
+                My Projects
+                <span class="title-decoration"></span>
+            </h2>
+            <p class="section-subtitle">Showcasing my creative journey</p>
+        </div>
+        
+        <div class="portfolio-container scroll-animate-scale animate-delay-2">
+            <div class="project-gallery">
+                <div class="main-viewer">
+                    <!-- NEW: Fit Controls for Image Display -->
+                    <div class="fit-controls">
+                        <button class="fit-btn active" data-fit="contain">Fit</button>
+                        <button class="fit-btn" data-fit="cover">Fill</button>
+                    </div>
+                    
+                    <div class="viewer-container fit-contain" id="mainViewer">
+                        <div class="project-display active" data-project="0">
+                            <div class="project-image-container">
+                                <img src="assets/ProjectArt1.png" alt="Project 1">
+                            </div>
+                            <div class="project-overlay">
+                                <div class="project-details">
+                                    <h3>Stardust Little Witch</h3>
+                                    <p>Game Designer</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Main Character</span>
+                                        <span class="tag">Game Assets</span>
+                                        <span class="tag">Illustration</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-display" data-project="1">
+                            <div class="project-image-container">
+                                <img src="assets/ProjectArt2.png" alt="Project 2">
+                            </div>
+                            <div class="project-overlay">
+                                <div class="project-details">
+                                    <h3>Stardust Little Witch</h3>
+                                    <p>Game Designer</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Game boss</span>
+                                        <span class="tag">Game Assets</span>
+                                        <span class="tag">Illustration</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-display" data-project="2">
+                            <div class="project-image-container">
+                                <img src="assets/ProjectArt3.png" alt="Project 3">
+                            </div>
+                            <div class="project-overlay">
+                                <div class="project-details">
+                                    <h3>Stardust Little Witch</h3>
+                                    <p>Art & Design</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Final boss</span>
+                                        <span class="tag">Pre Assets</span>
+                                        <span class="tag">Illustration</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-display" data-project="3">
+                            <div class="project-image-container">
+                                <img src="assets/UEProject1.png" alt="Project 4">
+                            </div>
+                            <div class="project-overlay">
+                                <div class="project-details">
+                                    <h3>UE Midterm Project</h3>
+                                    <p>UE5 Development</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Unreal Engine</span>
+                                        <span class="tag">Level Designing</span>
+                                        <span class="tag">3D Modeling</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-display" data-project="4">
+                            <div class="project-image-container">
+                                <img src="assets/UEProject2.png" alt="Project 5">
+                            </div>
+                            <div class="project-overlay">
+                                <div class="project-details">
+                                    <h3>UE5 Finalterm Project</h3>
+                                    <p>UE5 Development</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Unreal Engine</span>
+                                        <span class="tag">Level Designing</span>
+                                        <span class="tag">Game Mechanics Designing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="viewer-controls">
+                        <button class="control-btn prev-btn" id="prevBtn">
+                            <span class="btn-icon">←</span>
+                        </button>
+                        <button class="control-btn next-btn" id="nextBtn">
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="carousel-item">
-                    <img src="assets/ProjectArt2.png" class="d-block w-100" alt="Project 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="assets/ProjectArt3.png" class="d-block w-100" alt="Project 3">
-                </div>
-                <div class="carousel-item">
-                    <img src="assets/UEProject1.png" class="d-block w-100" alt="Project 4">
-                </div>
-                <div class="carousel-item">
-                    <img src="assets/UEProject2.png" class="d-block w-100" alt="Project 5">
+                
+                <div class="project-thumbnails">
+                    <div class="thumbnail-grid">
+                        <div class="thumbnail-item active" data-project="0">
+                            <div class="thumb-image">
+                                <img src="assets/ProjectArt1.png" alt="Thumb 1">
+                            </div>
+                            <span class="thumb-label">01</span>
+                        </div>
+                        
+                        <div class="thumbnail-item" data-project="1">
+                            <div class="thumb-image">
+                                <img src="assets/ProjectArt2.png" alt="Thumb 2">
+                            </div>
+                            <span class="thumb-label">02</span>
+                        </div>
+                        
+                        <div class="thumbnail-item" data-project="2">
+                            <div class="thumb-image">
+                                <img src="assets/ProjectArt3.png" alt="Thumb 3">
+                            </div>
+                            <span class="thumb-label">03</span>
+                        </div>
+                        
+                        <div class="thumbnail-item" data-project="3">
+                            <div class="thumb-image">
+                                <img src="assets/UEProject1.png" alt="Thumb 4">
+                            </div>
+                            <span class="thumb-label">04</span>
+                        </div>
+                        
+                        <div class="thumbnail-item" data-project="4">
+                            <div class="thumb-image">
+                                <img src="assets/UEProject2.png" alt="Thumb 5">
+                            </div>
+                            <span class="thumb-label">05</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
         </div>
     </div>
 
-
+    <!-- Cozy Contact Modal -->
     <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content cozy-modal">
                 <div class="modal-header">
-                <h5 class="modal-title" id="contactModalLabel">Contact Me</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <div class="modal-title-container">
+                        <span class="modal-icon">📬</span>
+                        <h5 class="modal-title" id="contactModalLabel">Get in Touch</h5>
+                    </div>
+                    <button type="button" class="btn-close cozy-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                <p><strong>📞 Phone:</strong> 065-434-3213</p>
-                <p><strong>📧 Email:</strong> atikun_c@cmu.ac.th</p>
-                <p><strong>🌐 Facebook:</strong> <a href="https://www.facebook.com/yocht676868" target="_blank">Ggot Yochtmix</a></p>
+                    <div class="contact-grid">
+                        <div class="contact-card">
+                            <div class="contact-header">
+                                <span class="contact-icon">📱</span>
+                                <span class="contact-label">Phone</span>
+                            </div>
+                            <div class="contact-value">065-434-3213</div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-header">
+                                <span class="contact-icon">✉️</span>
+                                <span class="contact-label">Email</span>
+                            </div>
+                            <div class="contact-value">atikun_c@cmu.ac.th</div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-header">
+                                <span class="contact-icon">🌐</span>
+                                <span class="contact-label">Social</span>
+                            </div>
+                            <div class="contact-value">
+                                <a href="https://www.facebook.com/yocht676868" target="_blank" class="social-link">
+                                    Ggot Yochtmix
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
