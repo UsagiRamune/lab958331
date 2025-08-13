@@ -799,29 +799,255 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1000);
 });
 
-function toggleFullscreen() {
-    const iframe = document.querySelector('#game iframe');
-    if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-    }
+// Enhanced Game Section Functions
+function toggleGameFullscreen() {
+    const fullscreenOverlay = document.getElementById('gameFullscreen');
+    const button = event.target;
+    
+    // Add click feedback
+    button.style.transform = 'scale(0.95)';
+    button.style.background = 'rgba(255, 255, 255, 0.4)';
+    
+    setTimeout(() => {
+        button.style.transform = '';
+        button.style.background = '';
+    }, 150);
+    
+    // Show fullscreen overlay
+    fullscreenOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    
+    // Show notification
+    showNotification('🎮 Game is now in fullscreen mode! Press Close or ESC to exit.');
+}
+
+function closeGameFullscreen() {
+    const fullscreenOverlay = document.getElementById('gameFullscreen');
+    
+    // Hide fullscreen overlay
+    fullscreenOverlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+    
+    showNotification('🎮 Exited fullscreen mode!');
 }
 
 function refreshGame() {
-    const iframe = document.querySelector('#game iframe');
-    iframe.src = iframe.src;
+    const mainIframe = document.querySelector('#game iframe');
+    const fullscreenIframe = document.querySelector('#gameFullscreen iframe');
+    const button = event.target;
+    
+    // Button feedback
+    button.style.transform = 'scale(0.95)';
+    button.style.background = 'rgba(255, 255, 255, 0.4)';
+    
+    // Update button text
+    const originalText = button.textContent;
+    button.textContent = '🔄 Restarting...';
+    button.style.pointerEvents = 'none';
+    
+    // Refresh both iframes
+    mainIframe.src = mainIframe.src;
+    if (fullscreenIframe) {
+        fullscreenIframe.src = fullscreenIframe.src;
+    }
+    
+    // Reset button after delay
+    setTimeout(() => {
+        button.style.transform = '';
+        button.style.background = '';
+        button.textContent = originalText;
+        button.style.pointerEvents = '';
+        showNotification('🎮 Game restarted successfully!');
+    }, 2000);
 }
 
-// Optional: Show loading indicator
-document.addEventListener('DOMContentLoaded', function() {
-    const iframe = document.querySelector('#game iframe');
-    const loading = document.getElementById('gameLoading');
+// Enhanced Game Section Scroll Animation
+function initGameSectionAnimation() {
+    const gameSection = document.getElementById('game');
+    if (!gameSection) return;
     
-    iframe.addEventListener('load', function() {
-        if (loading) {
-            loading.style.display = 'none';
-        }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Main section animation
+                entry.target.classList.add('animate');
+                
+                // Staggered animations for child elements
+                const sectionHeader = entry.target.querySelector('.section-header');
+                const gameWindow = entry.target.querySelector('.ratio');
+                const gameInfo = entry.target.querySelector('.game-info');
+                
+                setTimeout(() => {
+                    if (sectionHeader) sectionHeader.style.transform = 'translateY(0)';
+                }, 200);
+                
+                setTimeout(() => {
+                    if (gameWindow) {
+                        gameWindow.style.transform = 'translateY(0) scale(1)';
+                        gameWindow.style.opacity = '1';
+                    }
+                }, 400);
+                
+                setTimeout(() => {
+                    if (gameInfo) {
+                        gameInfo.style.transform = 'translateY(0)';
+                        gameInfo.style.opacity = '1';
+                    }
+                }, 600);
+                
+                // Add magical sparkle effect
+                createGameSparkles(entry.target);
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
     });
+    
+    observer.observe(gameSection);
+}
+
+// Create magical sparkle animation when game section appears
+function createGameSparkles(gameSection) {
+    const sparkleCount = 8;
+    
+    for (let i = 0; i < sparkleCount; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.style.cssText = `
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            box-shadow: 0 0 10px #ffffff;
+        `;
+        
+        // Random position around the game window
+        const gameWindow = gameSection.querySelector('.ratio');
+        const rect = gameWindow.getBoundingClientRect();
+        const sectionRect = gameSection.getBoundingClientRect();
+        
+        sparkle.style.left = (Math.random() * 100) + '%';
+        sparkle.style.top = (Math.random() * 100) + '%';
+        
+        gameSection.style.position = 'relative';
+        gameSection.appendChild(sparkle);
+        
+        // Animate sparkle
+        setTimeout(() => {
+            sparkle.style.transition = 'all 2s cubic-bezier(0.4, 0, 0.2, 1)';
+            sparkle.style.opacity = '1';
+            sparkle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px) scale(1.5)`;
+            
+            setTimeout(() => {
+                sparkle.style.opacity = '0';
+                setTimeout(() => sparkle.remove(), 500);
+            }, 1500);
+        }, i * 200);
+    }
+}
+
+// ESC key to exit fullscreen
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const fullscreenOverlay = document.getElementById('gameFullscreen');
+        if (fullscreenOverlay && fullscreenOverlay.classList.contains('active')) {
+            closeGameFullscreen();
+        }
+    }
 });
+
+// Initialize child elements with staggered animation setup
+function initGameChildAnimations() {
+    const gameSection = document.getElementById('game');
+    if (!gameSection) return;
+    
+    const sectionHeader = gameSection.querySelector('.section-header');
+    const gameWindow = gameSection.querySelector('.ratio');
+    const gameInfo = gameSection.querySelector('.game-info');
+    
+    // Set initial states
+    if (sectionHeader) {
+        sectionHeader.style.transform = 'translateY(30px)';
+        sectionHeader.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+    
+    if (gameWindow) {
+        gameWindow.style.transform = 'translateY(40px) scale(0.95)';
+        gameWindow.style.opacity = '0';
+        gameWindow.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+    
+    if (gameInfo) {
+        gameInfo.style.transform = 'translateY(30px)';
+        gameInfo.style.opacity = '0';
+        gameInfo.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    initGameChildAnimations();
+    initGameSectionAnimation();
+    
+    // Optional: Show loading indicator for iframes
+    const iframes = document.querySelectorAll('#game iframe, #gameFullscreen iframe');
+    iframes.forEach(iframe => {
+        iframe.addEventListener('load', function() {
+            const loading = document.getElementById('gameLoading');
+            if (loading) {
+                loading.style.display = 'none';
+            }
+        });
+    });
+    
+    console.log("🎮 Enhanced Game Section loaded successfully!");
+});
+
+// Add to your existing showNotification function if you don't have it
+if (typeof showNotification === 'undefined') {
+    function showNotification(message, duration = 3000) {
+        const existing = document.querySelectorAll('.cozy-notification');
+        existing.forEach(notif => notif.remove());
+        
+        const notification = document.createElement('div');
+        notification.className = 'cozy-notification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid #6366f1;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            color: #f1f5f9;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            max-width: 300px;
+            font-weight: 500;
+        `;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => notification.remove(), 300);
+        }, duration);
+    }
+}
 
 // Console welcome message for developers
 console.log(`
