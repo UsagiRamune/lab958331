@@ -470,10 +470,10 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("  • Keyboard shortcuts (Arrow keys, F for fit toggle)");
 });
 
-// Enhanced CV Download with better feedback
+// Fixed CV Download Function - No more text duplication bug!
 function downloadCV() {
     const clickedElement = event.target;
-    const originalText = clickedElement.textContent;
+    const originalHTML = clickedElement.innerHTML; // Store original HTML instead of just text
     const originalIcon = clickedElement.querySelector('.nav-icon')?.textContent;
     
     // Visual feedback sequence
@@ -481,42 +481,21 @@ function downloadCV() {
     clickedElement.style.background = 'rgba(99, 102, 241, 0.2)';
     clickedElement.style.borderColor = 'var(--primary)';
     
-    // Update text and icon
-    if (clickedElement.querySelector('.nav-icon')) {
-        clickedElement.querySelector('.nav-icon').textContent = '⬇️';
-    }
-    clickedElement.childNodes.forEach(node => {
-        if (node.nodeType === Node.TEXT_NODE) {
-            node.textContent = 'Downloading...';
-        }
-    });
+    // Update content - use innerHTML to replace entire content cleanly
+    clickedElement.innerHTML = '<span class="nav-icon">⬇️</span>Downloading...';
     
     // Simulate download progress
     setTimeout(() => {
-        if (clickedElement.querySelector('.nav-icon')) {
-            clickedElement.querySelector('.nav-icon').textContent = '✅';
-        }
-        clickedElement.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                node.textContent = 'Downloaded!';
-            }
-        });
+        clickedElement.innerHTML = '<span class="nav-icon">✅</span>Downloaded!';
         clickedElement.style.background = 'rgba(16, 185, 129, 0.2)';
         clickedElement.style.borderColor = 'var(--success)';
         
-        // Reset after delay
+        // Reset after delay - restore original HTML completely
         setTimeout(() => {
             clickedElement.style.transform = '';
             clickedElement.style.background = '';
             clickedElement.style.borderColor = '';
-            if (clickedElement.querySelector('.nav-icon') && originalIcon) {
-                clickedElement.querySelector('.nav-icon').textContent = originalIcon;
-            }
-            clickedElement.childNodes.forEach(node => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    node.textContent = originalText.replace(/[📄⬇️✅]/g, '').trim();
-                }
-            });
+            clickedElement.innerHTML = originalHTML; // Restore original HTML
         }, 2000);
     }, 1500);
     
@@ -540,7 +519,7 @@ function downloadCV() {
     document.body.appendChild(downloadEffect);
     setTimeout(() => downloadEffect.remove(), 1500);
     
-    // Add download spin animation
+    // Add download spin animation (only if it doesn't exist)
     if (!document.querySelector('#download-style')) {
         const downloadStyle = document.createElement('style');
         downloadStyle.id = 'download-style';
