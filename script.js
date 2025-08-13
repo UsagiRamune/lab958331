@@ -799,6 +799,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1000);
 });
 
+function toggleFullscreen() {
+    const iframe = document.querySelector('#game iframe');
+    if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+    }
+}
+
+function refreshGame() {
+    const iframe = document.querySelector('#game iframe');
+    iframe.src = iframe.src;
+}
+
+// Optional: Show loading indicator
+document.addEventListener('DOMContentLoaded', function() {
+    const iframe = document.querySelector('#game iframe');
+    const loading = document.getElementById('gameLoading');
+    
+    iframe.addEventListener('load', function() {
+        if (loading) {
+            loading.style.display = 'none';
+        }
+    });
+});
+
 // Console welcome message for developers
 console.log(`
 ╭─────────────────────────────────────────────╮
