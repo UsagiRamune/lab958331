@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import './index.css'
+import Navbar from '@/components/Navbar'
+import HeroSection from '@/sections/HeroSection'
+import AboutSection from '@/sections/AboutSection'
+import ProjectsSection from '@/sections/ProjectsSection'
+import ActivitySection from '@/sections/ActivitySection'
+import ContactSection from '@/sections/ContactSection'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <ProjectsSection />
+        <ActivitySection />
+        <ContactSection />
+      </main>
+
+      {/* Responsive styles */}
+      <style>{`
+        /* Mobile overrides */
+        @media (max-width: 768px) {
+          .hero-section {
+            grid-template-columns: 1fr !important;
+            padding-top: 5rem !important;
+          }
+          .about-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .about-top-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .skills-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .hidden-mobile {
+            display: none !important;
+          }
+          .show-mobile {
+            display: flex !important;
+          }
+        }
+
+        @media (min-width: 769px) {
+          .show-mobile {
+            display: none !important;
+          }
+        }
+      `}</style>
     </>
   )
 }
-
-export default App
